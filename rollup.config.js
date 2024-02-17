@@ -18,7 +18,7 @@ const banner = createBanner({
 });
 
 export default {
-  input: "src/index.ts",
+  input: "lib/index.ts",
   output: [
     {
       banner,
@@ -56,12 +56,6 @@ export default {
       file: `dist/${pkg.name}.esm.min.js`,
       format: "esm",
       plugins: [terser()],
-    },
-    {
-      banner,
-      name: pkg.name,
-      file: `docs/js/${pkg.name}.js`,
-      format: "umd",
     },
   ],
   plugins: [

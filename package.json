@@ -1,8 +1,7 @@
 {
   "name": "dearu-logo-generator",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
-  "type": "module",
   "main": "dist/dearu-logo-generator.common.js",
   "module": "dist/dearu-logo-generator.esm.js",
   "browser": "dist/dearu-logo-generator.js",
