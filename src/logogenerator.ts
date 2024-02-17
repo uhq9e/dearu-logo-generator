@@ -9,11 +9,6 @@ import LogoFont from "../assets/fonts/logo_regular.otf";
 
 const ns = "http://www.w3.org/2000/svg";
 
-if (!isBrowser()) {
-  const w = parseHTML("<div></div>");
-  var document = w.document;
-}
-
 export class LogoGenerator {
   readonly origWidth = 1280;
   readonly origHeight = 720;
@@ -29,6 +24,8 @@ export class LogoGenerator {
 
   readonly lineMaxLength = [6, 5];
 
+  document: Document;
+
   width: number;
   height: number;
 
@@ -39,6 +36,8 @@ export class LogoGenerator {
   constructor(meta: LogoMeta = nowayu, direction: Direction = "horizontal") {
     this.meta = meta;
     this.direction = direction;
+
+    this.document = isBrowser() ? document : parseHTML("").document;
 
     if (direction === "vertical") {
       this.width = this.origHeight;
@@ -107,7 +106,7 @@ export class LogoGenerator {
   }
 
   private drawBackground(imgUri: string): SVGImageElement {
-    const image = document.createElementNS(ns, "image");
+    const image = this.document.createElementNS(ns, "image");
     bulkSetAttributes(image, {
       x: 0,
       y: this.direction === "vertical" ? -this.width : 0,
@@ -131,7 +130,7 @@ export class LogoGenerator {
     const path = glyph.getPath(x, y, fontSize);
     const pathData = path.toPathData(2);
 
-    const pathElem = document.createElementNS(ns, "path");
+    const pathElem = this.document.createElementNS(ns, "path");
     pathElem.setAttribute("d", pathData);
 
     return pathElem;
@@ -174,7 +173,7 @@ export class LogoGenerator {
     if (cfg?.yOffset) y += cfg.yOffset;
 
     const yBaseline = this.largeCellSize / 2;
-    const group = document.createElementNS(ns, "g");
+    const group = this.document.createElementNS(ns, "g");
 
     for (const cell of cells) {
       if (isSpace(cell.content)) {
@@ -190,11 +189,10 @@ export class LogoGenerator {
 
       const proxyX = this.direction === "vertical" ? yOffset : x;
       const proxyY = this.direction === "vertical" ? x : yOffset;
-      console.log(proxyX, proxyY);
 
-      const charGroup = document.createElementNS(ns, "g");
+      const charGroup = this.document.createElementNS(ns, "g");
 
-      const foregroundBoxOutline = document.createElementNS(ns, "rect");
+      const foregroundBoxOutline = this.document.createElementNS(ns, "rect");
       bulkSetAttributes(foregroundBoxOutline, {
         x: proxyX,
         y: proxyY,
@@ -207,7 +205,7 @@ export class LogoGenerator {
         ry: this.backgroundBoxRadius,
       });
 
-      const foregroundBox = document.createElementNS(ns, "rect");
+      const foregroundBox = this.document.createElementNS(ns, "rect");
       bulkSetAttributes(foregroundBox, {
         x: proxyX,
         y: proxyY,
@@ -220,7 +218,7 @@ export class LogoGenerator {
         ry: this.backgroundBoxRadius,
       });
 
-      const backgroundBoxOutline = document.createElementNS(ns, "rect");
+      const backgroundBoxOutline = this.document.createElementNS(ns, "rect");
       bulkSetAttributes(backgroundBoxOutline, {
         x: proxyX + this.backgroundStrokeWidth / 2,
         y: proxyY + this.backgroundStrokeWidth / 2,
@@ -233,7 +231,7 @@ export class LogoGenerator {
         ry: this.backgroundBoxRadius,
       });
 
-      const backgroundBox = document.createElementNS(ns, "rect");
+      const backgroundBox = this.document.createElementNS(ns, "rect");
       bulkSetAttributes(backgroundBox, {
         x: proxyX + this.backgroundStrokeWidth / 2,
         y: proxyY + this.backgroundStrokeWidth / 2,
@@ -296,8 +294,9 @@ export class LogoGenerator {
 
     const font = await this.loadFont(LogoFont);
 
-    const svg = document.createElementNS(ns, "svg");
+    const svg = this.document.createElementNS(ns, "svg");
     bulkSetAttributes(svg, {
+      xmlns: ns,
       viewBox: `0 0 ${this.width} ${this.height}`,
     });
 
