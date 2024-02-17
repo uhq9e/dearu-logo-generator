@@ -1,2 +1,2 @@
-export { LogoGenerator } from "./logogenerator.js";
-export * from "./logometa.js";
+export { LogoGenerator } from "./logogenerator";
+export * from "./logometa";

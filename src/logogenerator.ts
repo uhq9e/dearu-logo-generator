@@ -1,9 +1,9 @@
 import { parse, Font } from "opentype.js";
 import { parseHTML } from "linkedom";
 
-import { GridBuilder } from "./grid.js";
-import { nowayu } from "./logometa.js";
-import { bulkSetAttributes, isSpace, isBrowser } from "./util.js";
+import { GridBuilder } from "./grid";
+import { nowayu } from "./logometa";
+import { bulkSetAttributes, isSpace, isBrowser } from "./util";
 
 import LogoFont from "../assets/fonts/logo_regular.otf";
 

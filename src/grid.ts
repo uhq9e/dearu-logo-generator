@@ -1,4 +1,4 @@
-import { determineLanguage } from "./util.js";
+import { determineLanguage } from "./util";
 
 export class GridBuilder {
   readonly auxiliariesJa = ["て", "に", "を", "は"];
@@ -48,7 +48,7 @@ export class GridBuilder {
 
   public build(
     lines: [string, string],
-    highlights: HighlightRange[] = [{ line: 1, start: 0, end: 2 }]
+    highlights: HighlightRange[] = [{ line: 1, start: 0, end: 1 }]
   ): Cell[][] {
     this.grid = lines.map((v, i) =>
       this.buildLine(
