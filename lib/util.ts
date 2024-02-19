@@ -1,3 +1,5 @@
+import { Size, TextLanguage } from "./types/shared";
+
 import { BoundingBox } from "opentype.js";
 
 const jaRegex = /[ぁ-ヿ]/g;

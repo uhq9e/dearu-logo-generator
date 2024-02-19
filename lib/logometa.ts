@@ -1,3 +1,5 @@
+import type { LogoMeta } from "./types/shared";
+
 import nowayuBg from "../assets/backgrounds/nowayu_bg.svg";
 
 export const nowayu: LogoMeta = {

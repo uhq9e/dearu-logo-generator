@@ -5,7 +5,6 @@ import url from "@rollup/plugin-url";
 import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
 // import terser from "@rollup/plugin-terser";
-import { dts } from "rollup-plugin-dts";
 
 import createBanner from "create-banner";
 
@@ -22,12 +21,14 @@ export default [
   {
     input: "lib/index.ts",
     output: [
+      /*
       {
         banner,
         name: pkg.name,
         file: `dist/${pkg.name}.js`,
         format: "umd",
       },
+      */
       /*
     {
       banner,
@@ -77,13 +78,10 @@ export default [
       }),
       json(),
       // nodeResolve(),
-      typescript({ tsconfig: "./tsconfig.json" }),
+      typescript({
+        tsconfig: "./tsconfig.json",
+      }),
     ],
     external: ["opentype.js", "linkedom"],
-  },
-  {
-    input: "types/index.d.ts",
-    output: [{ file: `dist/${pkg.name}.d.ts`, format: "es" }],
-    plugins: [dts()],
   },
 ];

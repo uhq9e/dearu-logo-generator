@@ -1,3 +1,11 @@
+import {
+  LogoMeta,
+  Direction,
+  Cell,
+  DrawLineConfig,
+  HighlightRange,
+} from "./types/shared";
+
 import { parse, Font } from "opentype.js";
 import { parseHTML } from "linkedom";
 
@@ -48,17 +56,6 @@ export class LogoGenerator {
     }
   }
 
-  private async loadFont(url: string): Promise<Font> {
-    if (this.fonts.has(url)) {
-      return this.fonts.get(url)!;
-    }
-
-    const buffer = await fetch(url).then((res) => res.arrayBuffer());
-    const font = parse(buffer);
-    this.fonts.set(url, font);
-    return font;
-  }
-
   public setMeta(meta: LogoMeta) {
     this.meta = meta;
   }
@@ -103,6 +100,17 @@ export class LogoGenerator {
           (i === arr.length - 1 ? 0 : this.lineSpacing)
       )
       .reduce((a, b) => a + b, 0);
+  }
+
+  private async loadFont(url: string): Promise<Font> {
+    if (this.fonts.has(url)) {
+      return this.fonts.get(url)!;
+    }
+
+    const buffer = await fetch(url).then((res) => res.arrayBuffer());
+    const font = parse(buffer);
+    this.fonts.set(url, font);
+    return font;
   }
 
   private drawBackground(imgUri: string): SVGImageElement {

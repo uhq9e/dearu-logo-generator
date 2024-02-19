@@ -1,3 +1,4 @@
+import { Cell, HighlightRange } from "./types/shared";
 import { determineLanguage } from "./util";
 
 export class GridBuilder {
