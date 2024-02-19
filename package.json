@@ -1,15 +1,20 @@
 {
   "name": "dearu-logo-generator",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "dist/dearu-logo-generator.common.js",
   "module": "dist/dearu-logo-generator.esm.js",
   "browser": "dist/dearu-logo-generator.js",
+  "types": "./types/index.d.ts",
   "scripts": {
     "build": "rollup -c",
     "test": "jest"
   },
-  "keywords": [],
+  "keywords": [
+    "front-end",
+    "backend",
+    "svg"
+  ],
   "author": {
     "name": "uhq9e",
     "url": "https://github.com/uhq9e"
@@ -33,6 +38,7 @@
     "create-banner": "^2.0.0",
     "jest": "^29.7.0",
     "rollup": "^4.9.6",
+    "rollup-plugin-dts": "^6.1.0",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "tslib": "^2.6.2",
