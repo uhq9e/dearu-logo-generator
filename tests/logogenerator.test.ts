@@ -1,6 +1,6 @@
 import { describe, expect, test } from "@jest/globals";
-import { LogoGenerator } from "./logogenerator";
-import { nowayu } from "./logometa";
+import { LogoGenerator } from "../lib/logogenerator";
+import { nowayu } from "../lib/logometa";
 
 describe("LogoGenerator", () => {
   test("svg generates correctly", async () => {

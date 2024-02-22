@@ -1,5 +1,5 @@
 import { describe, expect, test } from "@jest/globals";
-import { GridBuilder } from "./grid";
+import { GridBuilder } from "../lib/grid";
 
 describe("GridBuilder", () => {
   test("build", () => {

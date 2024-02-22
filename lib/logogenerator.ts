@@ -17,6 +17,9 @@ import LogoFont from "../assets/fonts/logo_regular.otf";
 
 const ns = "http://www.w3.org/2000/svg";
 
+/**
+ * Logo Generator main class
+ */
 export class LogoGenerator {
   readonly origWidth = 1280;
   readonly origHeight = 720;
@@ -25,14 +28,14 @@ export class LogoGenerator {
   readonly smallCellSize = this.largeCellSize * 0.87;
 
   readonly backgroundBoxRadius = 8;
-  readonly backgroundStrokeWidth = 6;
+  readonly backgroundStrokeWidth = 7;
 
   readonly spacing = 12;
   readonly lineSpacing = 4;
 
   readonly lineMaxLength = [6, 5];
 
-  document: Document;
+  private document: Document;
 
   width: number;
   height: number;
@@ -56,8 +59,26 @@ export class LogoGenerator {
     }
   }
 
-  public setMeta(meta: LogoMeta) {
+  /**
+   * Set the meta information for the logo.
+   *
+   * @param {LogoMeta} meta - the meta information to set
+   * @return {this} the current instance for method chaining
+   */
+  public setMeta(meta: LogoMeta): this {
     this.meta = meta;
+    return this;
+  }
+
+  /**
+   * Set the direction of the logo.
+   *
+   * @param {Direction} direction - the direction to set
+   * @return {this} the current instance for method chaining
+   */
+  public setDirection(direction: Direction): this {
+    this.direction = direction;
+    return this;
   }
 
   private getCellSize(cell: Cell) {
@@ -291,6 +312,15 @@ export class LogoGenerator {
     return group;
   }
 
+  /**
+   * Generate an SVG element containing the logo based on the input lines and highlights.
+   *
+   * @param {string} firstLine - the first line of text
+   * @param {string} secondLine - the second line of text
+   * @param {HighlightRange[]} [highlights] - array of highlight ranges
+   * @param {boolean} [center=false] - whether to center the text
+   * @return {Promise<SVGSVGElement>} a Promise that resolves to the generated SVG element
+   */
   public async generate(
     firstLine: string,
     secondLine: string,
