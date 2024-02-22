@@ -1,5 +1,7 @@
 # dearu-logo-generator
 
+![hero](https://cdn.jsdelivr.net/gh/uhq9e/dearu-logo-generator/docs/images/hero.svg)
+
 A _Yuusha de Aru series (勇者であるシリーズ)_ logo generator library for Node.js and browsers.
 
 ## Install
