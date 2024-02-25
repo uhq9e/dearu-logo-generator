@@ -36,7 +36,7 @@ console.log(svg.outerHTML); // <svg viewBox="0 0 1280 720" xmlns=...
 ## TODO
 
 - [x] NoWaYu
-- [ ] KuMeYu
+- [x] KuMeYu
 - [ ] WaSuYu
 - [ ] UHiMi
 - [ ] YuYuYu
