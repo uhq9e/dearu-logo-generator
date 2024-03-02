@@ -77,7 +77,16 @@ export class LogoGenerator {
    * @return {this} the current instance for method chaining
    */
   public setDirection(direction: Direction): this {
+    if (direction === "vertical") {
+      this.width = this.origHeight;
+      this.height = this.origWidth;
+    } else {
+      this.width = this.origWidth;
+      this.height = this.origHeight;
+    }
+
     this.direction = direction;
+
     return this;
   }
 
