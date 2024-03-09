@@ -1,5 +1,4 @@
-import { LogoMeta, Direction, HighlightRange } from "./types/shared";
-import { Font } from "opentype.js";
+import { ILogoMeta, Direction, IHighlightRange } from "./types/shared";
 /**
  * Logo Generator main class
  */
@@ -13,20 +12,21 @@ export declare class LogoGenerator {
     readonly spacing = 12;
     readonly lineSpacing = 4;
     readonly lineMaxLength: number[];
+    readonly bleeding = 32;
     private document;
     width: number;
     height: number;
-    meta: LogoMeta;
-    direction: Direction;
-    fonts: Map<string, Font>;
-    constructor(meta?: LogoMeta, direction?: Direction);
+    private meta;
+    private direction;
+    private fonts;
+    constructor(meta?: ILogoMeta, direction?: Direction);
     /**
      * Set the meta information for the logo.
      *
-     * @param {LogoMeta} meta - the meta information to set
+     * @param {ILogoMeta} meta - the meta information to set
      * @return {this} the current instance for method chaining
      */
-    setMeta(meta: LogoMeta): this;
+    setMeta(meta: ILogoMeta): this;
     /**
      * Set the direction of the logo.
      *
@@ -38,6 +38,7 @@ export declare class LogoGenerator {
     private calcLineWidth;
     private calcLineHeight;
     private calcLinesHeight;
+    private calcCellsBBox;
     private loadFont;
     private drawBackground;
     private drawChar;
@@ -47,9 +48,9 @@ export declare class LogoGenerator {
      *
      * @param {string} firstLine - the first line of text
      * @param {string} secondLine - the second line of text
-     * @param {HighlightRange[]} [highlights] - array of highlight ranges
+     * @param {IHighlightRange[]} [highlights] - array of highlight ranges
      * @param {boolean} [center=false] - whether to center the text
      * @return {Promise<SVGSVGElement>} a Promise that resolves to the generated SVG element
      */
-    generate(firstLine: string, secondLine: string, highlights?: HighlightRange[], center?: boolean): Promise<SVGSVGElement>;
+    generate(firstLine: string, secondLine: string, highlights?: IHighlightRange[], center?: boolean, allowOverflow?: boolean): Promise<SVGSVGElement>;
 }

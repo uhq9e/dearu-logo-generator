@@ -3,17 +3,17 @@ export type TextLanguage = "ja" | "zh";
 export type Direction = "horizontal" | "vertical";
 export type HorizontalAlignment = "left" | "center" | "right";
 export type VerticalAlignment = "top" | "center" | "bottom";
-export interface Cell {
+export interface ICell {
     content: string;
     size: CellSize;
     highlight: boolean;
 }
-export interface HighlightRange {
+export interface IHighlightRange {
     line: 0 | 1;
     start: number;
     end: number;
 }
-export interface LogoMeta {
+export interface ILogoMeta {
     backgroundImage: string;
     outlineBoxColor: string;
     backgroundBoxColor: string;
@@ -24,13 +24,19 @@ export interface LogoMeta {
     centerOffsetX: number;
     lineOrigLength: [number, number];
 }
-export interface Size {
+export interface ISize {
     width: number;
     height: number;
 }
-export interface DrawLineConfig {
+export interface IDrawLineConfig {
     xAlign?: HorizontalAlignment;
     yAlign?: VerticalAlignment;
     xOffset?: number;
     yOffset?: number;
+}
+export interface IBoundingBox {
+    x1: number;
+    y1: number;
+    x2: number;
+    y2: number;
 }

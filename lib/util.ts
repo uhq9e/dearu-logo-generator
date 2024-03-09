@@ -1,4 +1,4 @@
-import { Size, TextLanguage } from "./types/shared";
+import { ISize, TextLanguage } from "./types/shared";
 
 import { BoundingBox } from "opentype.js";
 
@@ -14,7 +14,7 @@ export function bulkSetAttributes(
   return element;
 }
 
-export function calcGlyphSize(boundingBox: BoundingBox): Size {
+export function calcGlyphSize(boundingBox: BoundingBox): ISize {
   return {
     width: boundingBox.x2 - boundingBox.x1,
     height: boundingBox.y2 - boundingBox.y1,

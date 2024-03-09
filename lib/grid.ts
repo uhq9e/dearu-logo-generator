@@ -1,21 +1,21 @@
-import { Cell, HighlightRange } from "./types/shared";
+import { ICell, IHighlightRange } from "./types/shared";
 import { determineLanguage } from "./util";
 
 export class GridBuilder {
   readonly auxiliariesJa = ["て", "に", "を", "は"];
   readonly auxiliariesZh = ["是", "的", "地", "得"];
 
-  private grid?: Cell[][];
+  private grid?: ICell[][];
 
   constructor() {}
 
-  private buildLine(line: string, highlight?: HighlightRange): Cell[] {
+  private buildLine(line: string, highlight?: IHighlightRange): ICell[] {
     let invertSize = false;
     let oldHighlighting: boolean | null = null;
 
     const lineLang = determineLanguage(line);
 
-    let cells: Cell[] = [];
+    let cells: ICell[] = [];
 
     Array.from(line).forEach((char, index) => {
       const highlighting = highlight
@@ -49,8 +49,8 @@ export class GridBuilder {
 
   public build(
     lines: [string, string],
-    highlights: HighlightRange[] = [{ line: 1, start: 0, end: 1 }]
-  ): Cell[][] {
+    highlights: IHighlightRange[] = [{ line: 1, start: 0, end: 1 }]
+  ): ICell[][] {
     this.grid = lines.map((v, i) =>
       this.buildLine(
         v,

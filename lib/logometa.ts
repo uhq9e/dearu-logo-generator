@@ -1,11 +1,11 @@
-import type { LogoMeta } from "./types/shared";
+import type { ILogoMeta } from "./types/shared";
 import nowayuBg from "../assets/backgrounds/nowayu_bg.svg";
 import kumeyuBg from "../assets/backgrounds/kumeyu_bg.svg";
 
 /**
  * NoWaYu (Nogi Wakaba is a Hero) logo meta
  */
-export const nowayu: LogoMeta = {
+export const nowayu: ILogoMeta = {
   backgroundImage: nowayuBg,
   outlineBoxColor: "#ffffff",
   backgroundBoxColor: "#2962c5",
@@ -20,7 +20,7 @@ export const nowayu: LogoMeta = {
 /**
  * KuMeYu (Kusunoki Mebuki is a Hero) logo meta
  */
-export const kumeyu: LogoMeta = {
+export const kumeyu: ILogoMeta = {
   backgroundImage: kumeyuBg,
   outlineBoxColor: "#ffffff",
   backgroundBoxColor: "#5d786d",

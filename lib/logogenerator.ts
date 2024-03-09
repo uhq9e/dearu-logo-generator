@@ -1,9 +1,10 @@
 import {
-  LogoMeta,
+  ILogoMeta,
   Direction,
-  Cell,
-  DrawLineConfig,
-  HighlightRange,
+  ICell,
+  IDrawLineConfig,
+  IHighlightRange,
+  IBoundingBox,
 } from "./types/shared";
 
 import { parse, Font } from "opentype.js";
@@ -21,30 +22,32 @@ const ns = "http://www.w3.org/2000/svg";
  * Logo Generator main class
  */
 export class LogoGenerator {
-  readonly origWidth = 1280;
-  readonly origHeight = 720;
+  public readonly origWidth = 1280;
+  public readonly origHeight = 720;
 
-  readonly largeCellSize = 132;
-  readonly smallCellSize = this.largeCellSize * 0.87;
+  public readonly largeCellSize = 132;
+  public readonly smallCellSize = this.largeCellSize * 0.87;
 
-  readonly backgroundBoxRadius = 8;
-  readonly backgroundStrokeWidth = 7;
+  public readonly backgroundBoxRadius = 8;
+  public readonly backgroundStrokeWidth = 7;
 
-  readonly spacing = 12;
-  readonly lineSpacing = 4;
+  public readonly spacing = 12;
+  public readonly lineSpacing = 4;
 
-  readonly lineMaxLength = [6, 5];
+  public readonly lineMaxLength = [6, 5];
+
+  public readonly bleeding = 32;
 
   private document: Document;
 
-  width: number;
-  height: number;
+  public width: number;
+  public height: number;
 
-  meta: LogoMeta;
-  direction: Direction;
-  fonts: Map<string, Font> = new Map();
+  private meta: ILogoMeta;
+  private direction: Direction;
+  private fonts: Map<string, Font> = new Map();
 
-  constructor(meta: LogoMeta = nowayu, direction: Direction = "horizontal") {
+  constructor(meta: ILogoMeta = nowayu, direction: Direction = "horizontal") {
     this.meta = meta;
     this.direction = direction;
 
@@ -62,10 +65,10 @@ export class LogoGenerator {
   /**
    * Set the meta information for the logo.
    *
-   * @param {LogoMeta} meta - the meta information to set
+   * @param {ILogoMeta} meta - the meta information to set
    * @return {this} the current instance for method chaining
    */
-  public setMeta(meta: LogoMeta): this {
+  public setMeta(meta: ILogoMeta): this {
     this.meta = meta;
     return this;
   }
@@ -90,7 +93,7 @@ export class LogoGenerator {
     return this;
   }
 
-  private getCellSize(cell: Cell) {
+  private getCellSize(cell: ICell) {
     if (isSpace(cell.content)) {
       return this.spacing * 2;
     }
@@ -99,7 +102,7 @@ export class LogoGenerator {
   }
 
   private calcLineWidth(
-    cells: Cell[],
+    cells: ICell[],
     withEndSpacing: boolean = false
   ): number {
     return cells
@@ -115,14 +118,14 @@ export class LogoGenerator {
       .reduce((a, b) => a + b, 0);
   }
 
-  private calcLineHeight(cells: Cell[]): number {
+  private calcLineHeight(cells: ICell[]): number {
     return cells.reduce((a, b) => {
       const size = this.getCellSize(b);
       return size > a ? size : a;
     }, 0);
   }
 
-  private calcLinesHeight(lines: Cell[][]): number {
+  private calcLinesHeight(lines: ICell[][]): number {
     return lines
       .map(
         (line, i, arr) =>
@@ -130,6 +133,43 @@ export class LogoGenerator {
           (i === arr.length - 1 ? 0 : this.lineSpacing)
       )
       .reduce((a, b) => a + b, 0);
+  }
+
+  private calcCellsBBox(el: Element): IBoundingBox | null {
+    let x1: number | null = null,
+      y1: number | null = null,
+      x2: number | null = null,
+      y2: number | null = null;
+
+    (function iter(el: Element) {
+      if (el.tagName === "RECT") {
+        const elX = el.getAttribute("x")!;
+        const elY = el.getAttribute("y")!;
+        const elW = el.getAttribute("width")!;
+        const elH = el.getAttribute("height")!;
+
+        const elX1 = Number(elX);
+        const elX2 = Number(elX) + Number(elW);
+
+        x1 = x1 !== null ? Math.min(x1, elX1) : elX1;
+        x2 = x2 !== null ? Math.max(x2, elX2) : elX2;
+
+        const elY1 = Number(elY);
+        const elY2 = Number(elY) + Number(elH);
+
+        y1 = y1 !== null ? Math.min(y1, elY1) : elY1;
+        y2 = y2 !== null ? Math.max(y2, elY2) : elY2;
+      }
+
+      if (el.children.length > 0)
+        Array.from(el.children).forEach((child) => {
+          iter(child);
+        });
+    })(el);
+
+    return x1 !== null && y1 !== null && x2 !== null && y2 !== null
+      ? { x1, y1, x2, y2 }
+      : null;
   }
 
   private async loadFont(url: string): Promise<Font> {
@@ -177,9 +217,9 @@ export class LogoGenerator {
   private drawLine(
     x: number,
     y: number,
-    cells: Cell[],
+    cells: ICell[],
     font: Font,
-    cfg?: DrawLineConfig
+    cfg?: IDrawLineConfig
   ): SVGGElement {
     switch (cfg?.xAlign) {
       case "left":
@@ -326,15 +366,16 @@ export class LogoGenerator {
    *
    * @param {string} firstLine - the first line of text
    * @param {string} secondLine - the second line of text
-   * @param {HighlightRange[]} [highlights] - array of highlight ranges
+   * @param {IHighlightRange[]} [highlights] - array of highlight ranges
    * @param {boolean} [center=false] - whether to center the text
    * @return {Promise<SVGSVGElement>} a Promise that resolves to the generated SVG element
    */
   public async generate(
     firstLine: string,
     secondLine: string,
-    highlights?: HighlightRange[],
-    center: boolean = false
+    highlights?: IHighlightRange[],
+    center: boolean = false,
+    allowOverflow: boolean = true
   ): Promise<SVGSVGElement> {
     const builder = new GridBuilder();
     const lines = builder.build([firstLine, secondLine], highlights);
@@ -384,6 +425,22 @@ export class LogoGenerator {
 
       y += this.calcLineHeight(lines[i]);
       y += this.lineSpacing;
+    }
+
+    if (allowOverflow) {
+      const bBox = this.calcCellsBBox(svg);
+      if (bBox) {
+        const xMin = Math.min(0, bBox.x1 - this.bleeding);
+        const yMin = Math.min(0, bBox.y1 - this.bleeding);
+        const w = Math.max(this.width, bBox.x2 + this.bleeding) - xMin;
+        const h = Math.max(this.height, bBox.y2 + this.bleeding) - yMin;
+        svg.setAttribute(
+          "viewBox",
+          `${+xMin.toFixed(2)} ${+yMin.toFixed(2)} ${+w.toFixed(
+            2
+          )} ${+h.toFixed(2)}`
+        );
+      }
     }
 
     return svg;
