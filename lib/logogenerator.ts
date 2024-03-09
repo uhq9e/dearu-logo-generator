@@ -142,7 +142,7 @@ export class LogoGenerator {
       y2: number | null = null;
 
     (function iter(el: Element) {
-      if (el.tagName === "RECT") {
+      if (el.tagName.toLowerCase() === "rect") {
         const elX = el.getAttribute("x")!;
         const elY = el.getAttribute("y")!;
         const elW = el.getAttribute("width")!;
