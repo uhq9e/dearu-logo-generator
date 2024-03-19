@@ -220,7 +220,7 @@ export class LogoGenerator {
     cells: ICell[],
     font: Font,
     cfg?: IDrawLineConfig
-  ): SVGGElement {
+  ): SVGGElement[] {
     switch (cfg?.xAlign) {
       case "left":
         break;
@@ -251,9 +251,11 @@ export class LogoGenerator {
     if (cfg?.yOffset) y += cfg.yOffset;
 
     const yBaseline = this.largeCellSize / 2;
-    const group = this.document.createElementNS(ns, "g");
+    const charGroups: SVGGElement[] = [];
 
-    for (const cell of cells) {
+    for (const i in cells) {
+      const cell = cells[i];
+
       if (isSpace(cell.content)) {
         x += this.spacing * 2;
         continue;
@@ -269,6 +271,7 @@ export class LogoGenerator {
       const proxyY = this.direction === "vertical" ? x : yOffset;
 
       const charGroup = this.document.createElementNS(ns, "g");
+      charGroup.id = `char_${i}`;
 
       const foregroundBoxOutline = this.document.createElementNS(ns, "rect");
       bulkSetAttributes(foregroundBoxOutline, {
@@ -353,12 +356,12 @@ export class LogoGenerator {
 
       charGroup.appendChild(char);
 
-      group.appendChild(charGroup);
+      charGroups.push(charGroup);
 
       x += size + this.spacing;
     }
 
-    return group;
+    return charGroups;
   }
 
   /**
@@ -416,12 +419,17 @@ export class LogoGenerator {
           (this.smallCellSize / 3);
       }
 
-      svg.appendChild(
-        this.drawLine(x, proxyY, lines[i], font, {
-          xAlign: center ? "center" : "left",
-          yOffset: 6,
-        })
-      );
+      const lineChars = this.drawLine(x, proxyY, lines[i], font, {
+        xAlign: center ? "center" : "left",
+        yOffset: 6,
+      });
+
+      const lineGroup = this.document.createElementNS(ns, "g");
+      lineGroup.id = `line_${i}`;
+
+      lineChars.forEach((char) => lineGroup.appendChild(char));
+
+      svg.appendChild(lineGroup);
 
       y += this.calcLineHeight(lines[i]);
       y += this.lineSpacing;
