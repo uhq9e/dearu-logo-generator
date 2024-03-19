@@ -9,7 +9,7 @@ export class GridBuilder {
 
   constructor() {}
 
-  private buildLine(line: string, highlight?: IHighlightRange): ICell[] {
+  private buildLine(line: string, highlights: IHighlightRange[] = []): ICell[] {
     let invertSize = false;
     let oldHighlighting: boolean | null = null;
 
@@ -18,9 +18,9 @@ export class GridBuilder {
     let cells: ICell[] = [];
 
     Array.from(line).forEach((char, index) => {
-      const highlighting = highlight
-        ? index >= highlight.start && index <= highlight.end
-        : false;
+      const highlighting = highlights.some(
+        (hl) => index >= hl.start && index <= hl.end
+      );
 
       const auxiliaries =
         lineLang === "ja" ? this.auxiliariesJa : this.auxiliariesZh;
@@ -54,7 +54,7 @@ export class GridBuilder {
     this.grid = lines.map((v, i) =>
       this.buildLine(
         v,
-        highlights.find((h) => h.line === i)
+        highlights.filter((h) => h.line === i)
       )
     );
     return this.grid;
