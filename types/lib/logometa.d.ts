@@ -7,3 +7,7 @@ export declare const nowayu: ILogoMeta;
  * KuMeYu (Kusunoki Mebuki is a Hero) logo meta
  */
 export declare const kumeyu: ILogoMeta;
+/**
+ * WaSuYu (Washio Sumi is a Hero) logo meta
+ */
+export declare const wasuyu: ILogoMeta;
