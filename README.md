@@ -33,10 +33,10 @@ const svg = lg.generate(
 console.log(svg.outerHTML); // <svg viewBox="0 0 1280 720" xmlns=...
 ```
 
-## TODO
+## Current Supported Logo
 
 - [x] NoWaYu
 - [x] KuMeYu
-- [ ] WaSuYu
-- [ ] UHiMi
+- [x] WaSuYu
+- [x] UHiMi
 - [ ] YuYuYu

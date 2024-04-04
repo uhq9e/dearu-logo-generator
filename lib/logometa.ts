@@ -2,6 +2,7 @@ import type { ILogoMeta } from "./types/shared";
 import nowayuBg from "../assets/backgrounds/nowayu_bg.svg";
 import kumeyuBg from "../assets/backgrounds/kumeyu_bg.svg";
 import wasuyuBg from "../assets/backgrounds/wasuyu_bg.svg";
+import uhimiBg from "../assets/backgrounds/uhimi_bg.svg";
 
 /**
  * NoWaYu (Nogi Wakaba is a Hero) logo meta
@@ -46,4 +47,19 @@ export const wasuyu: ILogoMeta = {
   lineBeginOffset: [0.2116, 0.3138],
   centerOffsetX: 0.5,
   lineOrigLength: [5, 5],
+};
+
+/**
+ * UHiMi (Uesato Hinata is a Miko) logo meta
+ */
+export const uhimi: ILogoMeta = {
+  backgroundImage: uhimiBg,
+  outlineBoxColor: "#ffffff",
+  backgroundBoxColor: "#d71517",
+  foregroundBoxColor: "#ffffff",
+  textColor: "#d71517",
+  textHighlightColor: "#ffffff",
+  lineBeginOffset: [0.1885, 0.254],
+  centerOffsetX: 0.5,
+  lineOrigLength: [6, 5],
 };

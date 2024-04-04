@@ -11,3 +11,7 @@ export declare const kumeyu: ILogoMeta;
  * WaSuYu (Washio Sumi is a Hero) logo meta
  */
 export declare const wasuyu: ILogoMeta;
+/**
+ * UHiMi (Uesato Hinata is a Miko) logo meta
+ */
+export declare const uhimi: ILogoMeta;

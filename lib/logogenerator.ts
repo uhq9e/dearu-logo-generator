@@ -47,7 +47,7 @@ export class LogoGenerator {
   private direction: Direction;
   private fonts: Map<string, Font> = new Map();
 
-  constructor(meta: ILogoMeta = nowayu, direction: Direction = "horizontal") {
+  public constructor(meta: ILogoMeta = nowayu, direction: Direction = "horizontal") {
     this.meta = meta;
     this.direction = direction;
 
