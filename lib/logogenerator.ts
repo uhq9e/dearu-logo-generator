@@ -47,7 +47,10 @@ export class LogoGenerator {
   private direction: Direction;
   private fonts: Map<string, Font> = new Map();
 
-  public constructor(meta: ILogoMeta = nowayu, direction: Direction = "horizontal") {
+  public constructor(
+    meta: ILogoMeta = nowayu,
+    direction: Direction = "horizontal"
+  ) {
     this.meta = meta;
     this.direction = direction;
 
@@ -221,6 +224,13 @@ export class LogoGenerator {
     font: Font,
     cfg?: IDrawLineConfig
   ): SVGGElement[] {
+    const {
+      backgroundBoxColor,
+      foregroundBoxColor,
+      textColor,
+      textHighlightColor,
+    } = this.meta;
+
     switch (cfg?.xAlign) {
       case "left":
         break;
@@ -292,9 +302,7 @@ export class LogoGenerator {
         y: proxyY,
         width: size,
         height: size,
-        fill: cell.highlight
-          ? this.meta.backgroundBoxColor
-          : this.meta.foregroundBoxColor,
+        fill: cell.highlight ? backgroundBoxColor : foregroundBoxColor,
         rx: this.backgroundBoxRadius,
         ry: this.backgroundBoxRadius,
       });
@@ -319,7 +327,7 @@ export class LogoGenerator {
         width: size - this.backgroundStrokeWidth,
         height: size - this.backgroundStrokeWidth,
         fill: "none",
-        stroke: this.meta.backgroundBoxColor,
+        stroke: backgroundBoxColor,
         "stroke-width": this.backgroundStrokeWidth,
         rx: this.backgroundBoxRadius,
         ry: this.backgroundBoxRadius,
@@ -351,7 +359,7 @@ export class LogoGenerator {
       const char = this.drawChar(charX, charY, cell.content, font, fontSize);
       char.setAttribute(
         "fill",
-        cell.highlight ? this.meta.textHighlightColor : this.meta.textColor
+        cell.highlight ? textHighlightColor : textColor
       );
 
       charGroup.appendChild(char);
@@ -385,23 +393,34 @@ export class LogoGenerator {
 
     const font = await this.loadFont(LogoFont);
 
+    const {
+      backgroundImage,
+      lineBeginOffset,
+      lineOrigLength,
+      centerOffsetX,
+      offset = [0, 0],
+    } = this.meta;
+
     const svg = this.document.createElementNS(ns, "svg");
     bulkSetAttributes(svg, {
       xmlns: ns,
       viewBox: `0 0 ${this.width} ${this.height}`,
     });
 
-    svg.appendChild(this.drawBackground(this.meta.backgroundImage));
+    svg.appendChild(this.drawBackground(backgroundImage));
 
     let y = this.origHeight / 2 - this.calcLinesHeight(lines) / 2;
     for (const i in lines) {
-      let x = center
-        ? this.origWidth * this.meta.centerOffsetX
-        : this.origWidth * this.meta.lineBeginOffset[i];
+      let x =
+        (center
+          ? this.origWidth * centerOffsetX
+          : this.origWidth * lineBeginOffset[i]) +
+        offset[0] * this.origWidth;
       const proxyY =
-        this.direction === "vertical"
+        (this.direction === "vertical"
           ? Math.abs(this.origHeight - y - this.largeCellSize)
-          : y;
+          : y) +
+        offset[1] * this.origHeight;
 
       if (lines[i].length > this.lineMaxLength[i] && !center) {
         x -= this.calcLineWidth(
@@ -413,10 +432,8 @@ export class LogoGenerator {
         );
       }
 
-      if (lines[i].length < this.meta.lineOrigLength[i] && !center) {
-        x +=
-          (this.meta.lineOrigLength[i] - lines[i].length) *
-          (this.smallCellSize / 3);
+      if (lines[i].length < lineOrigLength[i] && !center) {
+        x += (lineOrigLength[i] - lines[i].length) * (this.smallCellSize / 3);
       }
 
       const lineChars = this.drawLine(x, proxyY, lines[i], font, {

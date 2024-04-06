@@ -27,9 +27,10 @@ export interface ILogoMeta {
   foregroundBoxColor: string;
   textColor: string;
   textHighlightColor: string;
-  lineBeginOffset: [number, number];
+  lineBeginOffset: [first: number, second: number];
   centerOffsetX: number;
-  lineOrigLength: [number, number];
+  lineOrigLength: [first: number, second: number];
+  offset?: [main: number, cross: number];
 }
 
 export interface ISize {
