@@ -398,7 +398,8 @@ export class LogoGenerator {
       lineBeginOffset,
       lineOrigLength,
       centerOffsetX,
-      offset = [0, 0],
+      offsetMainAxis = 0,
+      offsetCrossAxis = 0,
     } = this.meta;
 
     const svg = this.document.createElementNS(ns, "svg");
@@ -415,12 +416,12 @@ export class LogoGenerator {
         (center
           ? this.origWidth * centerOffsetX
           : this.origWidth * lineBeginOffset[i]) +
-        offset[0] * this.origWidth;
+        offsetMainAxis * this.origWidth;
       const proxyY =
         (this.direction === "vertical"
           ? Math.abs(this.origHeight - y - this.largeCellSize)
           : y) +
-        offset[1] * this.origHeight;
+        offsetCrossAxis * this.origHeight;
 
       if (lines[i].length > this.lineMaxLength[i] && !center) {
         x -= this.calcLineWidth(

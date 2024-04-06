@@ -30,7 +30,8 @@ export interface ILogoMeta {
   lineBeginOffset: [first: number, second: number];
   centerOffsetX: number;
   lineOrigLength: [first: number, second: number];
-  offset?: [main: number, cross: number];
+  offsetMainAxis?: number;
+  offsetCrossAxis?: number;
 }
 
 export interface ISize {
