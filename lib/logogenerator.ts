@@ -290,7 +290,7 @@ export class LogoGenerator {
         width: size,
         height: size,
         fill: "none",
-        stroke: "white",
+        stroke: this.meta.outlineColor,
         "stroke-width": this.backgroundStrokeWidth,
         rx: this.backgroundBoxRadius,
         ry: this.backgroundBoxRadius,
@@ -314,7 +314,7 @@ export class LogoGenerator {
         width: size - this.backgroundStrokeWidth,
         height: size - this.backgroundStrokeWidth,
         fill: "none",
-        stroke: "white",
+        stroke: this.meta.outlineColor,
         "stroke-width": this.backgroundStrokeWidth * 2,
         rx: this.backgroundBoxRadius,
         ry: this.backgroundBoxRadius,
@@ -350,7 +350,7 @@ export class LogoGenerator {
       );
       bulkSetAttributes(charOutline, {
         fill: "none",
-        stroke: "white",
+        stroke: this.meta.outlineColor,
         "stroke-width": this.backgroundStrokeWidth,
       });
 

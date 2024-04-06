@@ -9,7 +9,7 @@ import uhimiBg from "../assets/backgrounds/uhimi_bg.svg";
  */
 export const nowayu: ILogoMeta = {
   backgroundImage: nowayuBg,
-  outlineBoxColor: "#ffffff",
+  outlineColor: "#ffffff",
   backgroundBoxColor: "#2962c5",
   foregroundBoxColor: "#ebf766",
   textColor: "#2962c5",
@@ -24,7 +24,7 @@ export const nowayu: ILogoMeta = {
  */
 export const kumeyu: ILogoMeta = {
   backgroundImage: kumeyuBg,
-  outlineBoxColor: "#ffffff",
+  outlineColor: "#ffffff",
   backgroundBoxColor: "#5d786d",
   foregroundBoxColor: "#f4f6f6",
   textColor: "#5d786d",
@@ -39,7 +39,7 @@ export const kumeyu: ILogoMeta = {
  */
 export const wasuyu: ILogoMeta = {
   backgroundImage: wasuyuBg,
-  outlineBoxColor: "#ffffff",
+  outlineColor: "#ffffff",
   backgroundBoxColor: "#394c8f",
   foregroundBoxColor: "#c6c8e5",
   textColor: "#394c8f",
@@ -54,7 +54,7 @@ export const wasuyu: ILogoMeta = {
  */
 export const uhimi: ILogoMeta = {
   backgroundImage: uhimiBg,
-  outlineBoxColor: "#ffffff",
+  outlineColor: "#ffffff",
   backgroundBoxColor: "#d71517",
   foregroundBoxColor: "#ffffff",
   textColor: "#d71517",
