@@ -15,7 +15,7 @@ export interface IHighlightRange {
 }
 export interface ILogoMeta {
     backgroundImage: string;
-    outlineBoxColor: string;
+    outlineColor: string;
     backgroundBoxColor: string;
     foregroundBoxColor: string;
     textColor: string;
