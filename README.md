@@ -39,4 +39,4 @@ console.log(svg.outerHTML); // <svg viewBox="0 0 1280 720" xmlns=...
 - [x] KuMeYu
 - [x] WaSuYu
 - [x] UHiMi
-- [ ] YuYuYu
+- [x] YuYuYu

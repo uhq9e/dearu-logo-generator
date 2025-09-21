@@ -1,5 +1,9 @@
 import type { ILogoMeta } from "./types/shared";
 /**
+ * YuYuYu (Yuki Yuna is a Hero) logo meta
+ */
+export declare const yuyuyu: ILogoMeta;
+/**
  * NoWaYu (Nogi Wakaba is a Hero) logo meta
  */
 export declare const nowayu: ILogoMeta;

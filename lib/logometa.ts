@@ -1,8 +1,24 @@
 import type { ILogoMeta } from "./types/shared";
+import yuyuyuBg from "../assets/backgrounds/yuyuyu_bg.svg";
 import nowayuBg from "../assets/backgrounds/nowayu_bg.svg";
 import kumeyuBg from "../assets/backgrounds/kumeyu_bg.svg";
 import wasuyuBg from "../assets/backgrounds/wasuyu_bg.svg";
 import uhimiBg from "../assets/backgrounds/uhimi_bg.svg";
+
+/**
+ * YuYuYu (Yuki Yuna is a Hero) logo meta
+ */
+export const yuyuyu: ILogoMeta = {
+  backgroundImage: yuyuyuBg,
+  outlineColor: "#ffffff",
+  backgroundBoxColor: "#67362e",
+  foregroundBoxColor: "#eed0d2",
+  textColor: "#67362e",
+  textHighlightColor: "#ffffff",
+  lineBeginOffset: [0.1999, 0.305],
+  centerOffsetX: 0.5,
+  lineOrigLength: [5, 5],
+};
 
 /**
  * NoWaYu (Nogi Wakaba is a Hero) logo meta

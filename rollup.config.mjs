@@ -8,7 +8,7 @@ import json from "@rollup/plugin-json";
 
 import createBanner from "create-banner";
 
-import pkg from "./package.json" assert { type: "json" };
+import pkg from "./package.json" with { type: "json" };
 
 const banner = createBanner({
   data: {
