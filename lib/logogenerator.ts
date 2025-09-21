@@ -379,6 +379,7 @@ export class LogoGenerator {
    * @param {string} secondLine - the second line of text
    * @param {IHighlightRange[]} [highlights] - array of highlight ranges
    * @param {boolean} [center=false] - whether to center the text
+   * @param {boolean} [allowOverflow=true] - whether to allow the text to overflow
    * @return {Promise<SVGSVGElement>} a Promise that resolves to the generated SVG element
    */
   public async generate(
