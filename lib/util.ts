@@ -26,7 +26,7 @@ export function isSpace(text: string): boolean {
 }
 
 export function determineLanguage(text: string): TextLanguage {
-  if (jaRegex.exec(text)) {
+  if (text.match(jaRegex)) {
     return "ja";
   }
   return "zh";
