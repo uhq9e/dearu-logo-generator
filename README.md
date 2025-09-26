@@ -1,6 +1,6 @@
 # dearu-logo-generator
 
-![hero](https://cdn.jsdelivr.net/gh/uhq9e/dearu-logo-generator/docs/images/hero.svg)
+![hero](https://wkck-tools-web.vercel.app/api/logo-generator?series=nowayu&text1=%E5%8B%87%E8%80%85%E3%81%A7%E3%81%82%E3%82%8B%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA&text2=%E3%83%AD%E3%82%B4%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC&format=svg)
 
 A _Yuusha de Aru series (勇者であるシリーズ)_ logo generator library for Node.js and browsers.
 
